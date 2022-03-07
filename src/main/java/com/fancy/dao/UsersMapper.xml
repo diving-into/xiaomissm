@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fancy.dao.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.fancy.pojo.Users">
+    <id column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="ustatus" jdbcType="INTEGER" property="ustatus" />
+    <result column="ulevel" jdbcType="INTEGER" property="ulevel" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fancy.pojo.Users">
+    <result column="upass" jdbcType="VARBINARY" property="upass" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uid, uname, ustatus, ulevel, score
+  </sql>
+  <sql id="Blob_Column_List">
+    upass
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from users
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from users
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fancy.pojo.Users">
+    insert into users (uid, uname, ustatus, 
+      ulevel, score, upass
+      )
+    values (#{uid,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR}, #{ustatus,jdbcType=INTEGER}, 
+      #{ulevel,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{upass,jdbcType=VARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fancy.pojo.Users">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="uname != null">
+        uname,
+      </if>
+      <if test="ustatus != null">
+        ustatus,
+      </if>
+      <if test="ulevel != null">
+        ulevel,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="upass != null">
+        upass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="uname != null">
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="ustatus != null">
+        #{ustatus,jdbcType=INTEGER},
+      </if>
+      <if test="ulevel != null">
+        #{ulevel,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="upass != null">
+        #{upass,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fancy.pojo.Users">
+    update users
+    <set>
+      <if test="uname != null">
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="ustatus != null">
+        ustatus = #{ustatus,jdbcType=INTEGER},
+      </if>
+      <if test="ulevel != null">
+        ulevel = #{ulevel,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="upass != null">
+        upass = #{upass,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fancy.pojo.Users">
+    update users
+    set uname = #{uname,jdbcType=VARCHAR},
+      ustatus = #{ustatus,jdbcType=INTEGER},
+      ulevel = #{ulevel,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
+      upass = #{upass,jdbcType=VARBINARY}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fancy.pojo.Users">
+    update users
+    set uname = #{uname,jdbcType=VARCHAR},
+      ustatus = #{ustatus,jdbcType=INTEGER},
+      ulevel = #{ulevel,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+</mapper>

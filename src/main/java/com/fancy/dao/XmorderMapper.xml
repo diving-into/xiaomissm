@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fancy.dao.XmorderMapper">
+  <resultMap id="BaseResultMap" type="com.fancy.pojo.Xmorder">
+    <id column="oid" jdbcType="CHAR" property="oid" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="addressId" jdbcType="INTEGER" property="addressid" />
+    <result column="totalprice" jdbcType="DOUBLE" property="totalprice" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="odate" jdbcType="TIMESTAMP" property="odate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, uid, addressId, totalprice, remarks, status, odate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xmorder
+    where oid = #{oid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xmorder
+    where oid = #{oid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fancy.pojo.Xmorder">
+    insert into xmorder (oid, uid, addressId, 
+      totalprice, remarks, status, 
+      odate)
+    values (#{oid,jdbcType=CHAR}, #{uid,jdbcType=INTEGER}, #{addressid,jdbcType=INTEGER}, 
+      #{totalprice,jdbcType=DOUBLE}, #{remarks,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{odate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fancy.pojo.Xmorder">
+    insert into xmorder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="addressid != null">
+        addressId,
+      </if>
+      <if test="totalprice != null">
+        totalprice,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="odate != null">
+        odate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=CHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="addressid != null">
+        #{addressid,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null">
+        #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="odate != null">
+        #{odate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fancy.pojo.Xmorder">
+    update xmorder
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="addressid != null">
+        addressId = #{addressid,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null">
+        totalprice = #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="odate != null">
+        odate = #{odate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fancy.pojo.Xmorder">
+    update xmorder
+    set uid = #{uid,jdbcType=INTEGER},
+      addressId = #{addressid,jdbcType=INTEGER},
+      totalprice = #{totalprice,jdbcType=DOUBLE},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      odate = #{odate,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=CHAR}
+  </update>
+</mapper>

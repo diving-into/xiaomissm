@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fancy.dao.OrderdetailMapper">
+  <resultMap id="BaseResultMap" type="com.fancy.pojo.Orderdetail">
+    <id column="odid" jdbcType="INTEGER" property="odid" />
+    <result column="oid" jdbcType="CHAR" property="oid" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="pnumber" jdbcType="INTEGER" property="pnumber" />
+    <result column="ptotal" jdbcType="DOUBLE" property="ptotal" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    odid, oid, pid, pnumber, ptotal
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orderdetail
+    where odid = #{odid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orderdetail
+    where odid = #{odid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fancy.pojo.Orderdetail">
+    insert into orderdetail (odid, oid, pid, 
+      pnumber, ptotal)
+    values (#{odid,jdbcType=INTEGER}, #{oid,jdbcType=CHAR}, #{pid,jdbcType=INTEGER}, 
+      #{pnumber,jdbcType=INTEGER}, #{ptotal,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fancy.pojo.Orderdetail">
+    insert into orderdetail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="odid != null">
+        odid,
+      </if>
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="pnumber != null">
+        pnumber,
+      </if>
+      <if test="ptotal != null">
+        ptotal,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="odid != null">
+        #{odid,jdbcType=INTEGER},
+      </if>
+      <if test="oid != null">
+        #{oid,jdbcType=CHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pnumber != null">
+        #{pnumber,jdbcType=INTEGER},
+      </if>
+      <if test="ptotal != null">
+        #{ptotal,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fancy.pojo.Orderdetail">
+    update orderdetail
+    <set>
+      <if test="oid != null">
+        oid = #{oid,jdbcType=CHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pnumber != null">
+        pnumber = #{pnumber,jdbcType=INTEGER},
+      </if>
+      <if test="ptotal != null">
+        ptotal = #{ptotal,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where odid = #{odid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fancy.pojo.Orderdetail">
+    update orderdetail
+    set oid = #{oid,jdbcType=CHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      pnumber = #{pnumber,jdbcType=INTEGER},
+      ptotal = #{ptotal,jdbcType=DOUBLE}
+    where odid = #{odid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fancy.dao.ProductInfoMapper">
+  <resultMap id="BaseResultMap" type="com.fancy.pojo.ProductInfo">
+    <id column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="p_name" jdbcType="VARCHAR" property="pName" />
+    <result column="p_content" jdbcType="VARCHAR" property="pContent" />
+    <result column="p_price" jdbcType="INTEGER" property="pPrice" />
+    <result column="p_image" jdbcType="VARCHAR" property="pImage" />
+    <result column="p_number" jdbcType="INTEGER" property="pNumber" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="p_date" jdbcType="DATE" property="pDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    p_id, p_name, p_content, p_price, p_image, p_number, type_id, p_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_info
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from product_info
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product_info
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fancy.pojo.ProductInfo">
+    insert into product_info (p_id, p_name, p_content, 
+      p_price, p_image, p_number, 
+      type_id, p_date)
+    values (#{pId,jdbcType=INTEGER}, #{pName,jdbcType=VARCHAR}, #{pContent,jdbcType=VARCHAR}, 
+      #{pPrice,jdbcType=INTEGER}, #{pImage,jdbcType=VARCHAR}, #{pNumber,jdbcType=INTEGER}, 
+      #{typeId,jdbcType=INTEGER}, #{pDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fancy.pojo.ProductInfo">
+    insert into product_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="pName != null">
+        p_name,
+      </if>
+      <if test="pContent != null">
+        p_content,
+      </if>
+      <if test="pPrice != null">
+        p_price,
+      </if>
+      <if test="pImage != null">
+        p_image,
+      </if>
+      <if test="pNumber != null">
+        p_number,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="pDate != null">
+        p_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="pName != null">
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pContent != null">
+        #{pContent,jdbcType=VARCHAR},
+      </if>
+      <if test="pPrice != null">
+        #{pPrice,jdbcType=INTEGER},
+      </if>
+      <if test="pImage != null">
+        #{pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="pNumber != null">
+        #{pNumber,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="pDate != null">
+        #{pDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fancy.pojo.ProductInfo">
+    update product_info
+    <set>
+      <if test="pName != null">
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pContent != null">
+        p_content = #{pContent,jdbcType=VARCHAR},
+      </if>
+      <if test="pPrice != null">
+        p_price = #{pPrice,jdbcType=INTEGER},
+      </if>
+      <if test="pImage != null">
+        p_image = #{pImage,jdbcType=VARCHAR},
+      </if>
+      <if test="pNumber != null">
+        p_number = #{pNumber,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="pDate != null">
+        p_date = #{pDate,jdbcType=DATE},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fancy.pojo.ProductInfo">
+    update product_info
+    set p_name = #{pName,jdbcType=VARCHAR},
+      p_content = #{pContent,jdbcType=VARCHAR},
+      p_price = #{pPrice,jdbcType=INTEGER},
+      p_image = #{pImage,jdbcType=VARCHAR},
+      p_number = #{pNumber,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      p_date = #{pDate,jdbcType=DATE}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>
